@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".Login">
+    tools:context=".LoginActivity">
 
 
     <!-- Page Title -->
@@ -34,7 +34,7 @@
 
         <!-- Enter first name -->
         <EditText
-            android:id="@+id/firstNameSignUp"
+            android:id="@+id/firstName"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:hint="FirstName"
@@ -45,7 +45,7 @@
 
         <!-- Enter last name -->
         <EditText
-            android:id="@+id/lastNameSignUp"
+            android:id="@+id/lastName"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:hint="LastName"
@@ -67,7 +67,7 @@
 
         <!-- Enter email -->
         <EditText
-            android:id="@+id/emailSignUp"
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:hint="Email"
@@ -78,7 +78,7 @@
 
         <!-- Enter Password (First) -->
         <EditText
-            android:id="@+id/passwordSignUpFirst"
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:hint="Password"
@@ -89,7 +89,7 @@
 
         <!-- Enter Password (Second) -->
         <EditText
-            android:id="@+id/passwordSignUpSecond"
+            android:id="@+id/confirmPassword"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:hint="Confirm Password"

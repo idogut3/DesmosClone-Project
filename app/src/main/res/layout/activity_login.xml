@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".Login">
+    tools:context=".LoginActivity">
 
 
     <!-- Page Title -->
@@ -31,7 +31,7 @@
 
         <!-- Enter username -->
         <EditText
-            android:id="@+id/usernameLogin"
+            android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:hint="Username"
@@ -43,7 +43,7 @@
 
         <!-- Enter Password -->
         <EditText
-            android:id="@+id/passwordLogin"
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:hint="Password"

@@ -7,21 +7,9 @@
     <!-- SignUp Page -->
     <string name="SignUp">SignUp Page</string>   <!-- SignUp Page title -->
 
-    <string name="firstNameSignUp"></string>
-    <string name="lastNameSignUp"></string>
-    <string name="usernameSignUp"></string>
-    <string name="emailSignUp"></string>
-
-    <string name="passwordSignUpFirst"></string>
-    <string name="passwordSignUpSecond"></string>
-
-
-
 
     <!--Login Page -->
     <string name="login">Login Page</string>   <!-- Login Page title -->
-    <string name="usernameLogin"></string>
-    <string name="passwordLogin"></string>
 
 
 </resources>
