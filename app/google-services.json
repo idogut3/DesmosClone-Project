@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "537063048328",
+    "project_id": "desmoscloneapp",
+    "storage_bucket": "desmoscloneapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537063048328:android:a463b0d4907e8340edcb3d",
+        "android_client_info": {
+          "package_name": "com.example.desmosclonejavafirst"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGSubkgJAeeORoKcRbJQfTUt_qFjhpSHM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
