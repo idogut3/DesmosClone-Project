@@ -19,13 +19,27 @@
         android:textSize="35sp"
         android:textStyle="bold" />
 
+    <!-- Enter username -->
 
+    <EditText
+        android:id="@+id/usernameLogin"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Username"
+        android:inputType="text" />
 
-
+    <!-- Enter Password -->
+    <EditText
+        android:id="@+id/passwordLogin"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Password"
+        android:inputType="textPassword" />
 
 
     <!-- Login Button -->
     <Button
+        android:layout_marginTop="60dp"
         android:id="@+id/buttonLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".Login">
+
+
+    <!-- Page Title -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="150dp"
+        android:gravity="center"
+        android:text="@string/SignUp"
+        android:textSize="35sp"
+        android:textStyle="bold" />
+
+
+    <!-- Enter first name -->
+
+    <EditText
+        android:id="@+id/firstNameSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="FirstName"
+        android:inputType="text" />
+
+    <!-- Enter last name -->
+
+    <EditText
+        android:id="@+id/lastNameSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="LastName"
+        android:inputType="text" />
+
+    <!-- Enter email -->
+
+    <EditText
+        android:id="@+id/emailSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Email"
+        android:inputType="text" />
+
+
+
+    <!-- Enter username -->
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Username"
+        android:inputType="text" />
+
+    <!-- Enter Password (First) -->
+    <EditText
+        android:id="@+id/passwordSignUpFirst"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Password"
+        android:inputType="textPassword" />
+
+    <!-- Enter Password (Second) -->
+    <EditText
+        android:id="@+id/passwordSignUpSecond"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Confirm Password"
+        android:inputType="textPassword" />
+
+
+
+    <!-- SignUp Button -->
+    <Button
+        android:layout_marginTop="60dp"
+        android:id="@+id/buttonSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SignUp" />
+
+</LinearLayout>
