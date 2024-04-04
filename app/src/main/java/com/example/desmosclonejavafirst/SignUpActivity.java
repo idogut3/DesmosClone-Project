@@ -31,7 +31,7 @@ public class SignUpActivity extends AppCompatActivity {
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+//                String firstName = firstName.getText
             }
         });
 
