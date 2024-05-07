@@ -17,9 +17,11 @@ import java.util.LinkedList;
 
 
 public class SignUpActivity extends AppCompatActivity {
+
     private EditText firstNameET, lastNameET, usernameET, emailET, passwordET, confirmPasswordET;
     private Button signupButton;
     FirebaseDatabase database;
+
 
 
     @Override
@@ -60,6 +62,7 @@ public class SignUpActivity extends AppCompatActivity {
                     CredentialAttribute currentCredential = credentials.get(i);
                     if (TextUtils.isEmpty(currentCredential.getValue())) {
                         Toast.makeText(SignUpActivity.this, "Please enter your " + currentCredential.getCredentialName(), Toast.LENGTH_SHORT).show();
+                        return;
                     }
                 }
             }
