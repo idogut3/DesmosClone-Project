@@ -23,7 +23,6 @@ public class SignUpActivity extends AppCompatActivity {
     FirebaseDatabase database;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,13 +56,18 @@ public class SignUpActivity extends AppCompatActivity {
                         new CredentialAttribute("password", password),
                         new CredentialAttribute("confirm password", confirmPassword)));
 
+                boolean passedAllDataValidations = true;
 
                 for (int i = 0; i < credentials.size(); i++) {
                     CredentialAttribute currentCredential = credentials.get(i);
                     if (TextUtils.isEmpty(currentCredential.getValue())) {
                         Toast.makeText(SignUpActivity.this, "Please enter your " + currentCredential.getCredentialName(), Toast.LENGTH_SHORT).show();
+                        passedAllDataValidations = false;
                         return;
                     }
+                }
+                if (!password.equals(confirmPassword)) {
+                    passedAllDataValidations = false;
                 }
             }
         });
