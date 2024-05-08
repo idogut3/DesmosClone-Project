@@ -1,14 +1,14 @@
 package com.example.desmosclonejavafirst;
 
+import static com.example.desmosclonejavafirst.TextValidations.isAllCredentialAttributesNotEmpty;
+import static com.example.desmosclonejavafirst.TextValidations.passwordMatchesConfirmPassword;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.credentials.Credential;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -39,6 +39,8 @@ public class SignUpActivity extends AppCompatActivity {
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean passedAllDataValidations = true;
+
                 // Those are all the credentials;
                 String firstName = firstNameET.getText().toString().trim();
                 String lastName = lastNameET.getText().toString().trim();
@@ -56,19 +58,9 @@ public class SignUpActivity extends AppCompatActivity {
                         new CredentialAttribute("password", password),
                         new CredentialAttribute("confirm password", confirmPassword)));
 
-                boolean passedAllDataValidations = true;
+                boolean allCredentialAttributesNotEmpty = isAllCredentialAttributesNotEmpty(credentials, SignUpActivity.this);
+                boolean passwordsMatch = passwordMatchesConfirmPassword(password, confirmPassword);
 
-                for (int i = 0; i < credentials.size(); i++) {
-                    CredentialAttribute currentCredential = credentials.get(i);
-                    if (TextUtils.isEmpty(currentCredential.getValue())) {
-                        Toast.makeText(SignUpActivity.this, "Please enter your " + currentCredential.getCredentialName(), Toast.LENGTH_SHORT).show();
-                        passedAllDataValidations = false;
-                        return;
-                    }
-                }
-                if (!password.equals(confirmPassword)) {
-                    passedAllDataValidations = false;
-                }
             }
         });
 
