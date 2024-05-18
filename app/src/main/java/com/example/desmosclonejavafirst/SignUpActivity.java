@@ -62,6 +62,14 @@ public class SignUpActivity extends AppCompatActivity {
                 boolean passwordsMatch = passwordMatchesConfirmPassword(password, confirmPassword);
 
 
+//                if(allCredentialAttributesNotEmpty && passwordsMatch){ //Todo: Sign up the user to the app
+//
+//                }
+//                else{ //Todo: print a message that there is a problem
+//
+//                }
+
+
 
             }
         });
