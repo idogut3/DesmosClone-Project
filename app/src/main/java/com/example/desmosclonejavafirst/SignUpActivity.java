@@ -61,6 +61,8 @@ public class SignUpActivity extends AppCompatActivity {
                 boolean allCredentialAttributesNotEmpty = isAllCredentialAttributesNotEmpty(credentials, SignUpActivity.this);
                 boolean passwordsMatch = passwordMatchesConfirmPassword(password, confirmPassword);
 
+
+
             }
         });
 

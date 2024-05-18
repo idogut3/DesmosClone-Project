@@ -9,7 +9,8 @@
 
 
     <!--Login Page -->
-    <string name="login">Login Page</string>   <!-- Login Page title -->
+    <string name="login">Login Page</string>
+    <string name="function">enter your function here</string>   <!-- Login Page title -->
 
 
 </resources>
