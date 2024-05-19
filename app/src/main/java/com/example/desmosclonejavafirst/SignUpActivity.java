@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -68,9 +69,9 @@ public class SignUpActivity extends AppCompatActivity {
                     Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
-//                else{ //Todo: print a message that there is a problem
-//
-//                }
+                else{ //Todo: print a message that there is a problem
+                    Toast.makeText(SignUpActivity.this , "There is a problem with your input cant sign up", Toast.LENGTH_SHORT).show();
+                }
 
 
 

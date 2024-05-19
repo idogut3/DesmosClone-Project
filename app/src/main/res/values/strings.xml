@@ -60,7 +60,9 @@
     <string name="email">Email</string>
     <string name="username">Username</string>
     <string name="lastname">LastName</string>
-    <string name="firstname">FirstName</string>   <!-- Login Page title -->
+    <string name="firstname">FirstName</string>
+    <string name="forgot_password">forgot password?</string>
+    <string name="register_a_new_user">Register a new user</string>
 
 
 </resources>

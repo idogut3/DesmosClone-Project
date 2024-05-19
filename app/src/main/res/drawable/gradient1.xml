@@ -4,13 +4,16 @@
     <!--on below line we are adding gradient and
     specifying start and end color with angle-->
     <gradient
-        android:angle="315"
+        android:angle="270"
+
         android:type="linear"
-        android:startColor="@color/puce"
-        android:endColor="@color/almond"
+        android:startColor="@color/light_blueish_green"
+        android:endColor="@color/lightPink"
         />
     <stroke
         android:width="3dp"
-        android:color="@color/almond"/>
-
+        android:color="@color/black"/>
+    <corners
+        android:bottomRightRadius="40sp"
+        android:topLeftRadius="40sp"/>
 </shape>

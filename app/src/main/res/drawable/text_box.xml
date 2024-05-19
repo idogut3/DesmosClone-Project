@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- * the layer list ads styles in layer items-->
+
+    <!--    first layer-->
+    <item>
+        <shape android:shape="rectangle">
+
+            <!-- draw a 4 dp width border around the rectangle shape -->
+            <stroke android:color="@color/darkSlateBlue" android:width="4dp"/>
+        </shape>
+    </item>
+
+    <!--    second layer-->
+    <item android:top="4dp" android:left="4dp" android:right="4dp" android:bottom="4dp">
+        <shape android:shape="rectangle">
+
+            <solid android:color="@color/almond"/>
+        </shape>
+    </item>
+
+</layer-list>
