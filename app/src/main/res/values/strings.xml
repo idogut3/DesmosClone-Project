@@ -53,7 +53,14 @@
         sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
-    </string>   <!-- Login Page title -->
+    </string>
+    <string name="buttonSignUp">SignUp</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="lastname">LastName</string>
+    <string name="firstname">FirstName</string>   <!-- Login Page title -->
 
 
 </resources>

@@ -5,6 +5,7 @@ import static com.example.desmosclonejavafirst.TextValidations.passwordMatchesCo
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +20,6 @@ import java.util.LinkedList;
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText firstNameET, lastNameET, usernameET, emailET, passwordET, confirmPasswordET;
-    private Button signupButton;
     FirebaseDatabase database;
 
 
@@ -34,7 +34,7 @@ public class SignUpActivity extends AppCompatActivity {
         this.emailET = (EditText) findViewById(R.id.email);
         this.passwordET = (EditText) findViewById(R.id.password);
         this.confirmPasswordET = (EditText) findViewById(R.id.confirmPassword);
-        this.signupButton = (Button) findViewById(R.id.buttonSignUp);
+        Button signupButton = (Button) findViewById(R.id.buttonSignUp);
 
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,9 +62,12 @@ public class SignUpActivity extends AppCompatActivity {
                 boolean passwordsMatch = passwordMatchesConfirmPassword(password, confirmPassword);
 
 
-//                if(allCredentialAttributesNotEmpty && passwordsMatch){ //Todo: Sign up the user to the app
-//
-//                }
+                if(allCredentialAttributesNotEmpty && passwordsMatch){ //Todo: Sign up the user to the app
+//                    User user = new user()
+//                    signUp(user)
+                    Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
 //                else{ //Todo: print a message that there is a problem
 //
 //                }
