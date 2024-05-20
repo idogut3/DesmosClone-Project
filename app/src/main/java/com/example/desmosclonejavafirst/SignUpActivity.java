@@ -66,10 +66,11 @@ public class SignUpActivity extends AppCompatActivity {
                 if(allCredentialAttributesNotEmpty && passwordsMatch){ //Todo: Sign up the user to the app
 //                    User user = new user()
 //                    signUp(user)
+//                    logIn(user)
                     Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
-                else{ //Todo: print a message that there is a problem
+                else{ // print a message that there is a problem
                     Toast.makeText(SignUpActivity.this , "There is a problem with your input cant sign up", Toast.LENGTH_SHORT).show();
                 }
 

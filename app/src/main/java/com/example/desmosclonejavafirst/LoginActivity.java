@@ -2,12 +2,15 @@ package com.example.desmosclonejavafirst;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,6 +34,28 @@ public class LoginActivity extends AppCompatActivity {
         animationDrawable.setEnterFadeDuration(2500);
         animationDrawable.setExitFadeDuration(5000);
         animationDrawable.start();
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String username = usernameET.getText().toString().trim();
+                String password = passwordET.getText().toString().trim();
+
+                // TODO: logIn(user)
+
+                Toast.makeText(LoginActivity.this, "you are logged in " + username, Toast.LENGTH_SHORT).show();
+                try {
+                    TimeUnit.SECONDS.sleep(2);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                Intent goToMainActivity = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(goToMainActivity);
+
+
+            }
+        });
 
     }
 
