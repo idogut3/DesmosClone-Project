@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
 
         AnimationDrawable animationDrawable = (AnimationDrawable) findViewById(R.id.linearLayout1).getBackground();
         animationDrawable.setEnterFadeDuration(2500);
-        animationDrawable.setExitFadeDuration(5000);
+        animationDrawable.setExitFadeDuration(2500);
         animationDrawable.start();
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Toast.makeText(LoginActivity.this, "you are logged in " + username, Toast.LENGTH_SHORT).show();
                 try {
-                    TimeUnit.SECONDS.sleep(2);
+                    TimeUnit.SECONDS.sleep(3);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -54,6 +54,13 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(goToMainActivity);
 
 
+            }
+        });
+        registerANewUserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToSignUp = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(goToSignUp);
             }
         });
 
