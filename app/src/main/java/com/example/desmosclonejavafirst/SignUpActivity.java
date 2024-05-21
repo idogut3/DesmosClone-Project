@@ -69,6 +69,7 @@ public class SignUpActivity extends AppCompatActivity {
 //                    logIn(user)
                     Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 }
                 else{ // print a message that there is a problem
                     Toast.makeText(SignUpActivity.this , "There is a problem with your input cant sign up", Toast.LENGTH_SHORT).show();

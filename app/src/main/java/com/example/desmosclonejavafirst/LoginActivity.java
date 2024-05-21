@@ -23,6 +23,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        this.usernameET = findViewById(R.id.username);
+        this.passwordET = findViewById(R.id.password);
         this.loginButton = findViewById(R.id.buttonLogin);
         this.forgotPasswordButton = findViewById(R.id.buttonForgotPassword);
         this.registerANewUserButton = findViewById(R.id.buttonRegisterANewUser);
@@ -44,33 +47,31 @@ public class LoginActivity extends AppCompatActivity {
                 // TODO: logIn(user)
 
                 Toast.makeText(LoginActivity.this, "you are logged in " + username, Toast.LENGTH_SHORT).show();
-                try {
-                    TimeUnit.SECONDS.sleep(3);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+
 
                 Intent goToMainActivity = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(goToMainActivity);
-
+                finish();
 
             }
         });
         registerANewUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goToSignUp = new Intent(LoginActivity.this, SignUpActivity.class);
-                startActivity(goToSignUp);
+                Intent goToSignUpActivity = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(goToSignUpActivity);
+            }
+        });
+
+        forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToForgotPasswordActivity = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(goToForgotPasswordActivity);
             }
         });
 
     }
-
-
-
-
-
-
 
 
 }

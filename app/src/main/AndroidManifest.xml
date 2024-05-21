@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DesmosCloneJavaFirst"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:exported="false" />
         <activity
             android:name=".GraphingCalculatorActivity"
             android:exported="false"
