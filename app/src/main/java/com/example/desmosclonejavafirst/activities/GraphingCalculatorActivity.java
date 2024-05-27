@@ -1,8 +1,10 @@
-package com.example.desmosclonejavafirst;
+package com.example.desmosclonejavafirst.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.desmosclonejavafirst.R;
 
 public class GraphingCalculatorActivity extends AppCompatActivity {
 

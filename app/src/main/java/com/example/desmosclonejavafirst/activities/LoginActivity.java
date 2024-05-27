@@ -1,22 +1,23 @@
-package com.example.desmosclonejavafirst;
+package com.example.desmosclonejavafirst.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import java.util.concurrent.TimeUnit;
+import com.example.desmosclonejavafirst.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText usernameET, passwordET;
+    private EditText emailET, passwordET;
     private Button loginButton, forgotPasswordButton, registerANewUserButton;
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -24,7 +25,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        this.usernameET = findViewById(R.id.username);
+
+        this.mAuth = FirebaseAuth.getInstance();
+
+        this.emailET = findViewById(R.id.email);
         this.passwordET = findViewById(R.id.password);
         this.loginButton = findViewById(R.id.buttonLogin);
         this.forgotPasswordButton = findViewById(R.id.buttonForgotPassword);
@@ -41,12 +45,14 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = usernameET.getText().toString().trim();
+                String email = emailET.getText().toString().trim();
                 String password = passwordET.getText().toString().trim();
 
                 // TODO: logIn(user)
+//                mAuth.signInWithEmailAndPassword(email, password);
 
-                Toast.makeText(LoginActivity.this, "you are logged in " + username, Toast.LENGTH_SHORT).show();
+
+                // Toast.makeText(LoginActivity.this, "you are logged in " + username, Toast.LENGTH_SHORT).show();
 
 
                 Intent goToMainActivity = new Intent(LoginActivity.this, MainActivity.class);
@@ -71,6 +77,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        //updateUI(currentUser);
     }
 
 

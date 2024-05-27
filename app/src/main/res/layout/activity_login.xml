@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".LoginActivity"
+    tools:context=".activities.LoginActivity"
     android:background="@drawable/transition1"
     android:id="@+id/linearLayout1">
 
@@ -38,13 +38,13 @@
 
             <!-- Enter username -->
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@color/lightPink"
-                android:hint="Username"
+                android:hint="Email"
                 android:inputType="text"
                 android:padding="10dp"
                 android:textColorHint="@color/black" />
