@@ -55,7 +55,7 @@ public abstract class TextValidation extends Validation {
     }
 
     /**
-     * @param password the first password
+     * @param password        the first password
      * @param confirmPassword conformation password
      * @return true if passwords are the same
      * @function passwordMatchesConfirmPassword
@@ -64,8 +64,11 @@ public abstract class TextValidation extends Validation {
         return password.equals(confirmPassword);
     }
 
-    public static boolean passedAllTextValidationsForSignUp(LinkedList<CredentialAttribute> credentials, Context context, String password, String confirmPassword){
+    public static boolean passedAllTextValidationsForSignUp(LinkedList<CredentialAttribute> credentials, Context context, String password, String confirmPassword) {
         return isAllCredentialAttributesNotEmpty(credentials, context) && passwordMatchesConfirmPassword(password, confirmPassword);
     }
 
+//    public static boolean passedAllTextValidationsForLogin(LinkedList<CredentialAttribute> credentials, Context context) {
+//        return isAllCredentialAttributesNotEmpty(credentials, context) && isEmailValid(credentials.get());
+//    }
 }
