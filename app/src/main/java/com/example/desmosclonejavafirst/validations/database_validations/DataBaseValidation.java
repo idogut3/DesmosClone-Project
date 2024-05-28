@@ -8,13 +8,12 @@ public class DataBaseValidation extends Validation {
     protected FirebaseAuth mAuth;
 
 
-
 //    public boolean isUserExistsInDataBase(){
 //        mAuth.
 //    }
 
 
-    public static boolean passedAllDataBaseValidations(){ //TODO: create this function
+    public static boolean passedAllDataBaseValidations() { //TODO: create this function
         return true;
     }
 

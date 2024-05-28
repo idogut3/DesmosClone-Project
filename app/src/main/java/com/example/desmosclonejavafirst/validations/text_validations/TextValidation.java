@@ -68,7 +68,7 @@ public abstract class TextValidation extends Validation {
         return isAllCredentialAttributesNotEmpty(credentials, context) && passwordMatchesConfirmPassword(password, confirmPassword);
     }
 
-//    public static boolean passedAllTextValidationsForLogin(LinkedList<CredentialAttribute> credentials, Context context) {
-//        return isAllCredentialAttributesNotEmpty(credentials, context) && isEmailValid(credentials.get());
-//    }
+    public static boolean passedAllTextValidationsForLogin(LinkedList<CredentialAttribute> credentials, Context context) {
+        return isAllCredentialAttributesNotEmpty(credentials, context); //TODO:: ADD EMAIL CHECK SOMETIME
+    }
 }
