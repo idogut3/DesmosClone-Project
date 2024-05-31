@@ -70,8 +70,8 @@ public class LoginActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         FirebaseUser user = mAuth.getCurrentUser();
-                                        Intent goToMainActivity = new Intent(LoginActivity.this, MainActivity.class);
-                                        startActivity(goToMainActivity);
+                                        Intent goToGraphingCalculatorActivity = new Intent(LoginActivity.this, GraphingCalculatorActivity.class);
+                                        startActivity(goToGraphingCalculatorActivity);
                                         finish();
                                     } else {
                                         Toast.makeText(LoginActivity.this, "Authentication Failed.", Toast.LENGTH_SHORT).show();
