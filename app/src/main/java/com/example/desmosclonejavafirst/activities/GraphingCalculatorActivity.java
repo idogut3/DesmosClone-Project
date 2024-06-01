@@ -22,6 +22,7 @@ public class GraphingCalculatorActivity extends AppCompatActivity {
         functionInput = findViewById(R.id.function_input);
         plotView = findViewById(R.id.plot_view);
         Button plotButton = findViewById(R.id.plot_button);
+        plotButton.requestFocus();
 
         plotButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -12,6 +12,8 @@ public class PlotView extends View {
     private Paint paint;
     private String function;
 
+
+
     public PlotView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
@@ -31,7 +33,8 @@ public class PlotView extends View {
     @Override
     protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
-        if (function != null) {
+        drawAxes(canvas);
+        if (function != null && !function.isEmpty()) {
             // Draw the polynomial function here
             drawFunction(canvas);
         }
@@ -40,38 +43,85 @@ public class PlotView extends View {
     private void drawFunction(Canvas canvas) {
         int width = getWidth();
         int height = getHeight();
-        float[] points = new float[width * 4];
-        for (int x = 0; x < width; x++) {
-            double y = evaluatePolynomial(function, (x - width / 2) / 20.0);
-            points[4 * x] = x;
-            points[4 * x + 1] = height / 2;
-            points[4 * x + 2] = x;
-            points[4 * x + 3] = (float) (height / 2 - y * 20);
+
+        // Center of the canvas
+        int centerX = width / 2;
+        int centerY = height / 2;
+
+        // List to store points
+        float[] points = new float[(width + 1) * 4];
+        int pointIndex = 0;
+
+        // Adjust the scale to fit the function in the view
+        double scaleX = 0.05; // Scale for x-axis
+        double scaleY = 0.05; // Scale for y-axis
+
+        for (int i = 0; i < width; i++) {
+            double x = (i - centerX) * scaleX;
+            double y = evaluatePolynomial(function, x);
+            points[pointIndex++] = i;
+            points[pointIndex++] = (float) (centerY - y / scaleY);
+
+            if (pointIndex >= points.length) break;
         }
-        canvas.drawLines(points, paint);
+
+        paint.setColor(0xFF0000FF); // Blue color for the function
+        for (int i = 0; i < pointIndex - 2; i += 2) {
+            canvas.drawLine(points[i], points[i + 1], points[i + 2], points[i + 3], paint);
+        }
     }
 
-    private double evaluatePolynomial(String function, double x) {
-        // This method needs to parse and evaluate the polynomial function
-        // For simplicity, let's assume it's of the form "a*x^n + b*x^(n-1) + ... + c"
-        // You might need to write a more robust parser here
+    private void drawAxes(Canvas canvas) {
+        int width = getWidth();
+        int height = getHeight();
+
+        paint.setColor(0xFF888888); // Gray color for the axes
+
+        // Draw X-axis (horizontal line)
+        canvas.drawLine(0, height / 2, width, height / 2, paint);
+
+        // Draw Y-axis (vertical line)
+        canvas.drawLine(width / 2, 0, width / 2, height, paint);
+    }
+
+    private static double evaluatePolynomial(String function, double x) {
         double result = 0.0;
-        function = function.replace(" ", "");
+        function = function.replace(" ", "").replace("-", "+-");
+
+        // Split the function into terms
         String[] terms = function.split("\\+");
+
         for (String term : terms) {
-            String[] parts = term.split("\\*x\\^");
-            if (parts.length == 2) {
-                double coefficient = Double.parseDouble(parts[0]);
-                int power = Integer.parseInt(parts[1]);
-                result += coefficient * Math.pow(x, power);
+            if (term.isEmpty()) continue;
+
+            double coefficient = 1.0;
+            int power = 0;
+
+            if (term.contains("x^")) {
+                // Split the term into coefficient and power parts
+                String[] parts = term.split("x\\^");
+                if (!parts[0].isEmpty() && !parts[0].equals("-")) {
+                    coefficient = Double.parseDouble(parts[0]);
+                } else if (parts[0].equals("-")) {
+                    coefficient = -1.0;
+                }
+                power = Integer.parseInt(parts[1]);
             } else if (term.contains("x")) {
-                double coefficient = Double.parseDouble(term.split("\\*x")[0]);
-                result += coefficient * x;
+                // Split the term into coefficient part
+                String[] parts = term.split("x");
+                if (!parts[0].isEmpty() && !parts[0].equals("-")) {
+                    coefficient = Double.parseDouble(parts[0]);
+                } else if (parts[0].equals("-")) {
+                    coefficient = -1.0;
+                }
+                power = 1;
             } else {
-                result += Double.parseDouble(term);
+                // Term is a constant
+                coefficient = Double.parseDouble(term);
             }
+
+            result += coefficient * Math.pow(x, power);
         }
         return result;
     }
 }
-
