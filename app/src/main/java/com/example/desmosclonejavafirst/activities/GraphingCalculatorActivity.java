@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.desmosclonejavafirst.PlotView;
+import com.example.desmosclonejavafirst.plot_view.PlotView;
 import com.example.desmosclonejavafirst.R;
 
 public class GraphingCalculatorActivity extends AppCompatActivity {

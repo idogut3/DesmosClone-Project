@@ -1,17 +1,30 @@
-package com.example.desmosclonejavafirst;
+package com.example.desmosclonejavafirst.plot_view;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.PointF;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+
+import com.example.desmosclonejavafirst.plot_view.zoom_handler.ScaleListener;
 
 public class PlotView extends View {
     private Paint paint;
     private String function;
 
+    // Variables for pinch-to-zoom
+    private ScaleGestureDetector scaleGestureDetector;
+    private ScaleListener scaleListener;
+
+    private PointF pivotPoint;  // To store the pivot point for scaling
+
+    private boolean hasErrorShown = false;
 
 
     public PlotView(Context context, AttributeSet attrs) {
@@ -23,21 +36,44 @@ public class PlotView extends View {
         paint = new Paint();
         paint.setColor(0xFF000000);
         paint.setStrokeWidth(2);
+        scaleListener = new ScaleListener();
+        scaleGestureDetector = new ScaleGestureDetector(getContext(), scaleListener);
+        pivotPoint = new PointF();
     }
 
     public void setFunction(String function) {
         this.function = function;
+        hasErrorShown = false; // Reset the error flag when a new function is set
         invalidate(); // Redraw the view
     }
 
     @Override
     protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
+
+        // Apply zoom transformation
+        canvas.save();
+        canvas.scale(scaleListener.getScaleFactor(), scaleListener.getScaleFactor(), pivotPoint.x, pivotPoint.y);
+
+        // Draw axes and function
         drawAxes(canvas);
         if (function != null && !function.isEmpty()) {
             // Draw the polynomial function here
-            drawFunction(canvas);
+            try {
+                //  Block of code to try
+                drawFunction(canvas);
+                hasErrorShown = false;
+            } catch (Exception e) {
+                //  Block of code to handle errors
+                if (!hasErrorShown) {
+                    Toast.makeText(getContext(), "Please enter your polynomial by the form ax^n + bx^(n-1) ...", Toast.LENGTH_SHORT).show();
+                    hasErrorShown = true;
+                }
+            }
+
+
         }
+        canvas.restore();
     }
 
     private void drawFunction(Canvas canvas) {
@@ -124,4 +160,16 @@ public class PlotView extends View {
         }
         return result;
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // Update the pivot point for scaling
+        pivotPoint.set(event.getX(), event.getY());
+        // Let the ScaleGestureDetector handle all the touch events
+        scaleGestureDetector.onTouchEvent(event);
+        invalidate(); // Redraw the view to reflect scale changes
+        return true;
+    }
+
+
 }
