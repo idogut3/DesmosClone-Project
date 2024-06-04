@@ -93,8 +93,13 @@ public class PlotView extends View {
         double scaleY = 0.05; // Scale for y-axis
 
         for (int i = 0; i < width; i++) {
+            // Calculating what is the x point we want to calculate now
+            // (taking into consideration the size of the View element in the activity's xml)
             double x = (i - centerX) * scaleX;
             double y = evaluatePolynomial(function, x);
+
+            // Setting in the array of points for each x point in the interval his place on the View element in arr[i]
+            // And in arr[i+1] his y place according to the correct place in the view element
             points[pointIndex++] = i;
             points[pointIndex++] = (float) (centerY - y / scaleY);
 
@@ -102,6 +107,8 @@ public class PlotView extends View {
         }
 
         paint.setColor(0xFF0000FF); // Blue color for the function
+
+        // Drawing the function
         for (int i = 0; i < pointIndex - 2; i += 2) {
             canvas.drawLine(points[i], points[i + 1], points[i + 2], points[i + 3], paint);
         }

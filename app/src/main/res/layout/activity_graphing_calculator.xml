@@ -18,7 +18,7 @@
         android:id = "@+id/plot_view"/>
 
 
-    <!-- Plot function button -->
+    <!-- TextBox to insert the function -->
     <EditText
         android:id="@+id/function_input"
         android:layout_width="300dp"
@@ -31,12 +31,12 @@
         android:inputType="text"
         android:padding="10dp"
         android:textColorHint="@color/black" />
-
+    <!-- Plot function button -->
     <Button
-                android:id="@+id/plot_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Plot Function" />
+        android:id="@+id/plot_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Plot Function" />
 
 
 </LinearLayout>
