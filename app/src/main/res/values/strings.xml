@@ -5,11 +5,11 @@
 
 
     <!-- SignUp Page -->
-    <string name="SignUp">SignUp Page</string>   <!-- SignUp Page title -->
+    <string name="SignUp">Sign up</string>   <!-- SignUp Page title -->
 
 
     <!--Login Page -->
-    <string name="login">Login Page</string>
+    <string name="login">Sign in</string>
     <string name="function">enter your function here</string>
     <string name="title_activity_graphing_calculator">graphingCalculatorActivity</string>
     <!-- Strings used for fragments for navigation -->
@@ -54,6 +54,7 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+
     <string name="buttonSignUp">SignUp</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="password">Password</string>
@@ -62,7 +63,21 @@
     <string name="lastname">LastName</string>
     <string name="firstname">FirstName</string>
     <string name="forgot_password">forgot password?</string>
-    <string name="register_a_new_user">Register a new user</string>
+    <string name="register_a_new_user">Don\'t have an account? Sign up here</string>
+    <string name="goToExplanationActivity">Go to an explanation page to understand what are polynomials</string>
+    <string name="goToGraphingCalculatorActivity">Use our Graphing Calculator</string>
+    <string name="main_activity">Main Activity</string>
+    <string name="polynomialFunctionsExplanationTitle">What are Polynomial Functions?</string>
+
+    <string name="polynomialFunctionsExplanation">
+       A polynomial function is a mathematical expression made up of variables and constants,
+        where the variables are raised to non-negative integer powers and combined using addition and multiplication.
+        It\'s like an algebraic recipe that takes a number as input, performs various arithmetic operations on it, and gives you another number as output.
+        For instance, (f(x) = 3x^2 - 2x + 5) is a simple polynomial function where x is the input variable, and the function computes a value based on the input by squaring it
+        ,multiplying it by 3, subtracting twice the value of  x, and adding 5.
+
+
+    </string>
 
 
 </resources>

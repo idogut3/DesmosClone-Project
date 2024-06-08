@@ -19,11 +19,11 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ForgotPasswordActivity extends AppCompatActivity {
 
     //Declaration
-    Button buttonReset, buttonGoBack;
-    EditText emailET;
-    ProgressBar progressBar;
-    FirebaseAuth mAuth;
-    String strEmail;
+    private Button buttonReset, buttonGoBack;
+    private EditText emailET;
+    private ProgressBar progressBar;
+    private FirebaseAuth mAuth;
+    private String strEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

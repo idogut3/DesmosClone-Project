@@ -27,7 +27,6 @@ import java.util.LinkedList;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText emailET, passwordET;
-    private Button loginButton, forgotPasswordButton, registerANewUserButton;
     private FirebaseAuth mAuth;
 
     @Override
@@ -39,13 +38,14 @@ public class LoginActivity extends AppCompatActivity {
 
         this.emailET = findViewById(R.id.email);
         this.passwordET = findViewById(R.id.password);
-        this.loginButton = findViewById(R.id.buttonLogin);
-        this.forgotPasswordButton = findViewById(R.id.buttonForgotPassword);
-        this.registerANewUserButton = findViewById(R.id.buttonRegisterANewUser);
+        Button loginButton = findViewById(R.id.buttonLogin);
+        Button forgotPasswordButton = findViewById(R.id.buttonForgotPassword);
+        Button registerANewUserButton = findViewById(R.id.buttonRegisterANewUser);
 
         forgotPasswordButton.setBackgroundColor(Color.TRANSPARENT);
         registerANewUserButton.setBackgroundColor(Color.TRANSPARENT);
 
+        // Start background animation
         AnimationDrawable animationDrawable = (AnimationDrawable) findViewById(R.id.linearLayout1).getBackground();
         animationDrawable.setEnterFadeDuration(2500);
         animationDrawable.setExitFadeDuration(2500);
@@ -70,8 +70,8 @@ public class LoginActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         FirebaseUser user = mAuth.getCurrentUser();
-                                        Intent goToGraphingCalculatorActivity = new Intent(LoginActivity.this, GraphingCalculatorActivity.class);
-                                        startActivity(goToGraphingCalculatorActivity);
+                                        Intent goToMainActivity = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(goToMainActivity);
                                         finish();
                                     } else {
                                         Toast.makeText(LoginActivity.this, "Authentication Failed.", Toast.LENGTH_SHORT).show();
