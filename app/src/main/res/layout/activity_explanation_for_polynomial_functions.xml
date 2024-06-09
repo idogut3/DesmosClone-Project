@@ -23,15 +23,17 @@
         tools:layout_editor_absoluteX="-16dp" />
 
 
-
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="horizontal">
 
 
     </LinearLayout>
 
+    <!-- TTS button -->
     <TextView
         android:id="@+id/explanationPart1"
         android:layout_width="match_parent"
@@ -43,10 +45,20 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/explanationTitle"
         app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/buttonGenerateExplanationTTS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tts"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/explanationPart1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
