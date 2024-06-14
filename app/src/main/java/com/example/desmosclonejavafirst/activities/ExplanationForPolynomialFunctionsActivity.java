@@ -2,6 +2,7 @@ package com.example.desmosclonejavafirst.activities;
 
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ public class ExplanationForPolynomialFunctionsActivity extends AppCompatActivity
         setContentView(R.layout.activity_explanation_for_polynomial_functions);
 
         Button buttonGenerateExplanationTTS = findViewById(R.id.buttonGenerateExplanationTTS);
+        Button buttonStopTTS = findViewById(R.id.stop_tts);
 
         explanationTitleET = findViewById(R.id.explanationTitle);
         explanationPart1ET = findViewById(R.id.explanationPart1);
@@ -44,9 +46,23 @@ public class ExplanationForPolynomialFunctionsActivity extends AppCompatActivity
                 String explanationTitle = explanationTitleET.getText().toString();
                 String explanationPart1 = explanationPart1ET.getText().toString();
 
+
+
                 textToSpeech.speak(explanationTitle, TextToSpeech.QUEUE_ADD, null);
                 textToSpeech.speak(explanationPart1, TextToSpeech.QUEUE_ADD, null);
+
+
             }
         });
+
+        buttonStopTTS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (textToSpeech.isSpeaking()){
+                    textToSpeech.stop();
+                }
+            }
+        });
+
     }
 }

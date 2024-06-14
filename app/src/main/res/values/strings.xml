@@ -70,15 +70,16 @@
     <string name="polynomialFunctionsExplanationTitle">What are Polynomial Functions?</string>
 
     <string name="polynomialFunctionsExplanation">
-       A polynomial function is a mathematical expression made up of variables and constants,
-        where the variables are raised to non-negative integer powers and combined using addition and multiplication.
-        It\'s like an algebraic recipe that takes a number as input, performs various arithmetic operations on it, and gives you another number as output.
+       A polynomial function is a mathematical expression made up of variables and constants, \n
+        where the variables are raised to non-negative integer powers and combined using addition and multiplication. \n
+        It\'s like an algebraic recipe that takes a number as input, performs various arithmetic operations on it, and gives you another number as output. \n
         For instance, (f(x) = 3x^2 - 2x + 5) is a simple polynomial function where x is the input variable, and the function computes a value based on the input by squaring it
         ,multiplying it by 3, subtracting twice the value of  x, and adding 5.
 
 
     </string>
     <string name="tts">TTS</string>
+    <string name="stop_tts_button">stop tts</string>
 
 
 </resources>

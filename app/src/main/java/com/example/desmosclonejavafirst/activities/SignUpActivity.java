@@ -24,19 +24,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Objects;
 
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText firstNameET, lastNameET, usernameET, emailET, passwordET, confirmPasswordET;
     private FirebaseAuth mAuth;
-    private FirebaseFirestore database;
+    private FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +51,7 @@ public class SignUpActivity extends AppCompatActivity {
         Button signupButton = findViewById(R.id.buttonSignUp);
 
         mAuth = FirebaseAuth.getInstance();
-        database = FirebaseFirestore.getInstance();
+        database = FirebaseDatabase.getInstance();
 
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,38 +102,30 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    public static void signUpANewUser(User user, FirebaseFirestore database, FirebaseAuth mAuth, Context context, ISignUpCallback iSignUpCallback) {
+    public static void signUpANewUser(User user, FirebaseDatabase database, FirebaseAuth mAuth, Context context, ISignUpCallback iSignUpCallback) {
         String userEmail = user.getEmail();
         String userPassword = user.getPassword();
-        String userFirstName = user.getFirstName();
-        String userLastName = user.getLastName();
-        String username = user.getUsername();
+
 
         mAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+                    DatabaseReference databaseReference = database.getReference().child("users");
+                    System.out.println(userId);
 
-                    Map<String, Object> userData = new HashMap<>();
-                    userData.put("firstName", userFirstName);
-                    userData.put("lastName", userLastName);
-                    userData.put("username", username);
-                    userData.put("email", userEmail);
-
-                    database.collection("users").document(userId)
-                            .set(userData)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        iSignUpCallback.onSignUpSuccess();
-                                        Toast.makeText(context.getApplicationContext(), "You signed up successfully yay", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        iSignUpCallback.onSignUpFailure("Failed to save user data");
-                                    }
-                                }
-                            });
+                    databaseReference.child(userId).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                iSignUpCallback.onSignUpSuccess();
+                                Toast.makeText(context.getApplicationContext(), "You signed up successfully yay", Toast.LENGTH_SHORT).show();
+                            } else {
+                                iSignUpCallback.onSignUpFailure("Failed to save user data");
+                            }
+                        }
+                    });
                 } else {
                     iSignUpCallback.onSignUpFailure("Authentication failed");
                     Log.e("tag", "Authentication failed: " + Objects.requireNonNull(task.getException()).getMessage());

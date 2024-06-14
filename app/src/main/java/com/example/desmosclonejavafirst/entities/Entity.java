@@ -1,6 +1,7 @@
 package com.example.desmosclonejavafirst.entities;
 
 public abstract class Entity {
+
     protected String username;
     protected String password;
 
