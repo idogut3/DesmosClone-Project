@@ -13,6 +13,9 @@
         android:theme="@style/Theme.DesmosCloneJavaFirst"
         tools:targetApi="31">
         <activity
+            android:name=".activities.AlarmClockActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.ExplanationForPolynomialFunctionsActivity"
             android:exported="false" />
         <activity

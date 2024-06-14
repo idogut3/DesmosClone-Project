@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,6 +23,7 @@ public class ExplanationForPolynomialFunctionsActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_explanation_for_polynomial_functions);
+
 
         Button buttonGenerateExplanationTTS = findViewById(R.id.buttonGenerateExplanationTTS);
         Button buttonStopTTS = findViewById(R.id.stop_tts);

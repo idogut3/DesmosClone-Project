@@ -80,6 +80,7 @@
     </string>
     <string name="tts">TTS</string>
     <string name="stop_tts_button">stop tts</string>
+    <string name="select_time">Select\nTime</string>
 
 
 </resources>

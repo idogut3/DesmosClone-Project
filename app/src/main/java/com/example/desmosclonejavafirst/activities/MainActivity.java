@@ -5,6 +5,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,15 +18,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button buttonGoToExplanationsActivity = findViewById(R.id.buttonGoToExplanationsActivity);
+        Button buttonGoToGraphingCalculatorActivity = findViewById(R.id.buttonGoToGraphingCalculatorActivity);
+
         // Start background animation
         AnimationDrawable animationDrawable = (AnimationDrawable) findViewById(R.id.mainActivityLayout).getBackground();
         animationDrawable.setEnterFadeDuration(2500);
         animationDrawable.setExitFadeDuration(2500);
         animationDrawable.start();
-
-        Button buttonGoToExplanationsActivity = findViewById(R.id.buttonGoToExplanationsActivity);
-        Button buttonGoToGraphingCalculatorActivity = findViewById(R.id.buttonGoToGraphingCalculatorActivity);
-
         buttonGoToExplanationsActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
