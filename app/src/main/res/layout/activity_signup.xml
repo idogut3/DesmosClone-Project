@@ -49,18 +49,6 @@
                 android:src="@drawable/default_profile_picture" />
 
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/toolbar"
-                android:background="@drawable/progress_bar"
-                android:padding="20dp"/>
-
-            <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/progress" />
-
             <!-- Enter first name -->
             <EditText
                 android:id="@+id/firstName"
