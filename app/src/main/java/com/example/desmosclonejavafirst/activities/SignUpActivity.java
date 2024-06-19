@@ -1,5 +1,6 @@
 package com.example.desmosclonejavafirst.activities;
 
+import static com.example.desmosclonejavafirst.security.HashingFunctions.encryptPasswordInSHA1;
 import static com.example.desmosclonejavafirst.validations.app_validations_for_permissions.AppPermissionsValidation.validateCameraAppPermission;
 import static com.example.desmosclonejavafirst.validations.database_validations.DataBaseValidation.passedAllDataBaseValidations;
 import static com.example.desmosclonejavafirst.validations.text_validations.TextValidation.passedAllTextValidationsForSignUp;
@@ -44,6 +45,7 @@ import java.util.UUID;
 public class SignUpActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
+    private static final String DEFAULT_PROFILE_PICTURE_URL = "https://example.com/default_profile_pic.png"; // Replace with your default image URL
     private Uri imageUri;
     private String userUUID;
 
@@ -123,7 +125,9 @@ public class SignUpActivity extends AppCompatActivity {
         String password = passwordET.getText().toString().trim();
 
         userUUID = UUID.randomUUID().toString();
-        User user = new User(username, password, firstName, lastName, email, null);
+
+        String hashedPassword = encryptPasswordInSHA1(password);
+        User user = new User(username, hashedPassword, firstName, lastName, email, null);
 
         signUpANewUser(user, database, mAuth, SignUpActivity.this, new ISignUpCallback() {
             @Override
@@ -159,7 +163,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void uploadImageToDatabaseAndSaveUrl(Uri file, String randomUUID, String userId) {
         if (file == null) {
-            Toast.makeText(this, "No image selected", Toast.LENGTH_SHORT).show();
+            saveImageUrlToDatabase(userId, DEFAULT_PROFILE_PICTURE_URL);
             return;
         }
 
@@ -170,10 +174,14 @@ public class SignUpActivity extends AppCompatActivity {
                 storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        String imageUrl = uri.toString();
-                        setImageUri(imageUri);
-                        saveImageUrlToDatabase(userId, imageUrl);
-                        Toast.makeText(SignUpActivity.this, "Image Uploaded and URL saved!", Toast.LENGTH_SHORT).show();
+                        if (uri != null) {
+                            String imageUrl = uri.toString();
+                            setImageUri(imageUri);
+                            saveImageUrlToDatabase(userId, imageUrl);
+                            Toast.makeText(SignUpActivity.this, "Image Uploaded and URL saved!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            saveImageUrlToDatabase(userId, DEFAULT_PROFILE_PICTURE_URL);
+                        }
                     }
                 });
             }
@@ -208,20 +216,36 @@ public class SignUpActivity extends AppCompatActivity {
                     String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
                     DatabaseReference databaseReference = database.getReference().child("users");
 
-                    uploadImageToDatabaseAndSaveUrl(imageUri, userUUID, userId);
-                    user.setImageUrl(getImageUrl());
-
-                    databaseReference.child(userId).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                iSignUpCallback.onSignUpSuccess();
-                                Toast.makeText(context.getApplicationContext(), "You signed up successfully!", Toast.LENGTH_SHORT).show();
-                            } else {
-                                iSignUpCallback.onSignUpFailure("Failed to save user data");
+                    if (imageUri == null) {
+                        user.setImageUrl(DEFAULT_PROFILE_PICTURE_URL);
+                        databaseReference.child(userId).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    iSignUpCallback.onSignUpSuccess();
+                                    Toast.makeText(context.getApplicationContext(), "You signed up successfully!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    iSignUpCallback.onSignUpFailure("Failed to save user data");
+                                }
                             }
-                        }
-                    });
+                        });
+                    } else {
+                        uploadImageToDatabaseAndSaveUrl(imageUri, userUUID, userId);
+                        String imageUrl = getImageUrl();
+                        user.setImageUrl(imageUrl);
+
+                        databaseReference.child(userId).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    iSignUpCallback.onSignUpSuccess();
+                                    Toast.makeText(context.getApplicationContext(), "You signed up successfully!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    iSignUpCallback.onSignUpFailure("Failed to save user data");
+                                }
+                            }
+                        });
+                    }
                 } else {
                     iSignUpCallback.onSignUpFailure("Authentication failed");
                     Log.e("SignUpActivity", "Authentication failed: " + Objects.requireNonNull(task.getException()).getMessage());
@@ -231,7 +255,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public String getImageUrl() {
-        return imageUri.toString();
+        return imageUri != null ? imageUri.toString() : DEFAULT_PROFILE_PICTURE_URL;
     }
 
     public void setImageUri(Uri imageUri) {
