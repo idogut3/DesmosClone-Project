@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class TextValidation extends Validation {
+public class TextValidation extends Validation {
 
     // Defining the regex pattern for a valid email address
     protected static final String EMAIL_REGEX = "^[\\w._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
@@ -71,4 +71,6 @@ public abstract class TextValidation extends Validation {
     public static boolean passedAllTextValidationsForLogin(LinkedList<CredentialAttribute> credentials, Context context) {
         return isAllCredentialAttributesNotEmpty(credentials, context); //TODO:: ADD EMAIL CHECK SOMETIME
     }
+
+
 }

@@ -17,5 +17,4 @@ public class DataBaseValidation extends Validation {
         return true;
     }
 
-
 }
