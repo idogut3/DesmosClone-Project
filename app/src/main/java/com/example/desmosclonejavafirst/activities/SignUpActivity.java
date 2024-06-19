@@ -33,6 +33,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -47,7 +49,7 @@ public class SignUpActivity extends AppCompatActivity {
     private ImageView imageProfilePicView;
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
-//    private FirebaseStorage firebaseStorage;
+//    private StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,15 +141,15 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
-//    private String getFileExtension(Uri uri) {
-////        String extension;
-////        // Get file extension logic
-////        extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(getContentResolver().getType(uri));
-////        return extension;
-//        ContentResolver contentResolver = getContentResolver();
-//        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-//        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
-//    }
+    private String getFileExtension(Uri uri) {
+//        String extension;
+//        // Get file extension logic
+//        extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(getContentResolver().getType(uri));
+//        return extension;
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
 
 //    private void uploadProfileImageToFirebase(String username) {
 //        if (imageUri != null) {

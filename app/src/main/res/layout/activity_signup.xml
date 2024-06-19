@@ -1,130 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:background="@drawable/background1"
+    android:padding="16dp"
+    android:fillViewport="true"
+    android:scrollbars="none"
     android:orientation="vertical"
-    tools:context=".activities.LoginActivity"
-    android:background="@drawable/background1">
-
-
-    <!-- Page Title -->
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="88dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="50dp"
-        android:background="@drawable/purple_border"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="@string/SignUp"
-        android:textSize="35sp"
-        android:textStyle="bold" />
+    tools:context=".activities.LoginActivity">
 
     <LinearLayout
-        android:layout_width="495dp"
-        android:layout_height="718dp"
-        android:background="@drawable/purple_border"
-        android:orientation="vertical"
-        android:paddingBottom="20dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-
-
-
-        <!-- ImageView for profile picture -->
-
-        <ImageView
-            android:id="@+id/imageProfilePicView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:clickable="true"
-            android:contentDescription="Profile Picture"
-            android:focusable="true"
-            android:paddingBottom="10dp"
-            android:src="@drawable/default_profile_picture" />
-        <!-- Enter first name -->
-        <EditText
-            android:id="@+id/firstName"
+        <!-- Page Title -->
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/white_background"
-            android:hint="@string/firstname"
-            android:inputType="text"
-            android:padding="10dp" />
-
-        <!-- Enter last name -->
-        <EditText
-            android:id="@+id/lastName"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/white_background"
-            android:hint="@string/lastname"
-            android:inputType="text"
-            android:padding="10dp" />
-
-        <!-- Enter username -->
-        <EditText
-            android:id="@+id/username"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/white_background"
-            android:hint="@string/username"
-            android:inputType="text"
-            android:padding="10dp" />
-
-        <!-- Enter email -->
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/white_background"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:padding="10dp" />
-
-        <!-- Enter Password (First) -->
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/white_background"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:padding="10dp" />
-
-        <!-- Enter Password (Second) -->
-        <EditText
-            android:id="@+id/confirmPassword"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/white_background"
-            android:hint="@string/confirm_password"
-            android:inputType="textPassword"
-            android:padding="10dp" />
-
-        <!-- SignUp Button -->
-        <Button
-            android:id="@+id/buttonSignUp"
-            android:layout_width="376dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="40dp"
-            android:minHeight="48dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/purple_border"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/SignUp"
+            android:textSize="35sp"
+            android:textStyle="bold" />
 
-            android:text="@string/buttonSignUp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/purple_border"
+            android:padding="20dp">
 
+            <!-- ImageView for profile picture -->
+            <ImageView
+                android:id="@+id/imageProfilePicView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:contentDescription="@string/profile_picture"
+                android:focusable="true"
+                android:paddingBottom="10dp"
+                android:src="@drawable/default_profile_picture" />
+
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/toolbar"
+                android:background="@drawable/progress_bar"
+                android:padding="20dp"/>
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/progress" />
+
+            <!-- Enter first name -->
+            <EditText
+                android:id="@+id/firstName"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/white_background"
+                android:hint="@string/firstname"
+                android:inputType="text"
+                android:padding="10dp" />
+
+            <!-- Enter last name -->
+            <EditText
+                android:id="@+id/lastName"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/white_background"
+                android:hint="@string/lastname"
+                android:inputType="text"
+                android:padding="10dp" />
+
+            <!-- Enter username -->
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/white_background"
+                android:hint="@string/username"
+                android:inputType="text"
+                android:padding="10dp" />
+
+            <!-- Enter email -->
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/white_background"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:padding="10dp" />
+
+            <!-- Enter Password (First) -->
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/white_background"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:padding="10dp" />
+
+            <!-- Enter Password (Second) -->
+            <EditText
+                android:id="@+id/confirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/white_background"
+                android:hint="@string/confirm_password"
+                android:inputType="textPassword"
+                android:padding="10dp" />
+
+            <!-- SignUp Button -->
+            <Button
+                android:id="@+id/buttonSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:minHeight="48dp"
+                android:text="@string/buttonSignUp" />
+
+        </LinearLayout>
     </LinearLayout>
-
-</LinearLayout>
-
+</ScrollView>
