@@ -5,23 +5,19 @@ import static com.example.desmosclonejavafirst.validations.app_validations_for_p
 import static com.example.desmosclonejavafirst.validations.database_validations.DataBaseValidation.passedAllDataBaseValidations;
 import static com.example.desmosclonejavafirst.validations.text_validations.TextValidation.passedAllTextValidationsForSignUp;
 
-import android.content.ContentResolver;
+import static java.util.UUID.randomUUID;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,13 +31,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -52,16 +46,16 @@ import java.util.UUID;
 
 public class SignUpActivity extends AppCompatActivity {
 
+    private User user;
+
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri imageUri;
+    private String randomUUID;
 
     private EditText firstNameET, lastNameET, usernameET, emailET, passwordET, confirmPasswordET;
     private ImageView imageProfilePicView;
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
-    private StorageReference storageReference;
-
-
 
 
     @Override
@@ -76,7 +70,6 @@ public class SignUpActivity extends AppCompatActivity {
         this.passwordET = findViewById(R.id.password);
         this.confirmPasswordET = findViewById(R.id.confirmPassword);
         this.imageProfilePicView = findViewById(R.id.imageProfilePicView);
-
 
 
         Button signupButton = findViewById(R.id.buttonSignUp);
@@ -115,7 +108,9 @@ public class SignUpActivity extends AppCompatActivity {
                     String username = usernameET.getText().toString().trim();
                     String email = emailET.getText().toString().trim();
 
-                    User user = new User(username, password, firstName, lastName, email);
+                    randomUUID = randomUUID().toString();
+                    String imageUrl = "images/" + randomUUID;
+                    user = new User(username, password, firstName, lastName, email, imageUrl);
                     signUpANewUser(user, database, mAuth, SignUpActivity.this, new ISignUpCallback() {
                         @Override
                         public void onSignUpSuccess() {
@@ -155,11 +150,17 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
-    private void uploadImageToDataBase(Uri file) {
-        storageReference = FirebaseStorage.getInstance().getReference().child("images/" + UUID.randomUUID().toString());
+    private void uploadImageToDataBase(Uri file, String randomUUID) {
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("images").child(randomUUID);
         storageReference.putFile(file).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                storageReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+
+                    }
+                });
                 Toast.makeText(SignUpActivity.this, "Image Uploaded!!", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -169,6 +170,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
     }
+
 
     public void signUpANewUser(User user, FirebaseDatabase database, FirebaseAuth mAuth, Context context, ISignUpCallback iSignUpCallback) {
         String userEmail = user.getEmail();
@@ -187,7 +189,7 @@ public class SignUpActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                uploadImageToDataBase(imageUri);
+                                uploadImageToDataBase(imageUri,randomUUID);
                                 iSignUpCallback.onSignUpSuccess();
                                 Toast.makeText(context.getApplicationContext(), "You signed up successfully yay", Toast.LENGTH_SHORT).show();
                             } else {

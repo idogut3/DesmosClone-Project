@@ -5,6 +5,7 @@ import static com.example.desmosclonejavafirst.validations.text_validations.Text
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -50,6 +51,10 @@ public class LoginActivity extends AppCompatActivity {
         animationDrawable.setEnterFadeDuration(2500);
         animationDrawable.setExitFadeDuration(2500);
         animationDrawable.start();
+
+        // Background music
+        MediaPlayer mediaPlayer = MediaPlayer.create(LoginActivity.this, R.raw.music_file1);
+        mediaPlayer.start();
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

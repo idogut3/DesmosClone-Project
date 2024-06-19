@@ -17,7 +17,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="150dp"
             android:gravity="center"
             android:text="@string/main_activity"
             android:textColor="@color/black"
@@ -29,6 +28,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingTop="100sp">
+
+            <!-- ImageView for profile picture -->
+
+            <ImageView
+                android:id="@+id/imageProfilePicView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:focusable="true"
+                android:paddingBottom="10dp"
+                android:src="@drawable/default_profile_picture" />
 
             <Button
                 android:id="@+id/buttonGoToExplanationsActivity"
