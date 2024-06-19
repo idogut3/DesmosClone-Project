@@ -1,6 +1,6 @@
 package com.example.desmosclonejavafirst.activities;
 
-import static com.example.desmosclonejavafirst.security.HashingFunctions.encryptPasswordInSHA1;
+//import static com.example.desmosclonejavafirst.security.HashingFunctions.encryptPasswordInSHA1;
 import static com.example.desmosclonejavafirst.validations.text_validations.TextValidation.passedAllTextValidationsForLogin;
 
 import android.app.ActivityManager;
@@ -73,8 +73,8 @@ public class LoginActivity extends AppCompatActivity {
                 boolean isInputValid = passedAllTextValidationsForLogin(credentials, LoginActivity.this);
 
                 if (isInputValid) {
-                    String hashedPassword = encryptPasswordInSHA1(password);
-                    mAuth.signInWithEmailAndPassword(email, hashedPassword)
+//                    String hashedPassword = encryptPasswordInSHA1(password);
+                    mAuth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {

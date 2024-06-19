@@ -1,6 +1,6 @@
 package com.example.desmosclonejavafirst.activities;
 
-import static com.example.desmosclonejavafirst.security.HashingFunctions.encryptPasswordInSHA1;
+//import static com.example.desmosclonejavafirst.security.HashingFunctions.encryptPasswordInSHA1;
 import static com.example.desmosclonejavafirst.validations.app_validations_for_permissions.AppPermissionsValidation.validateCameraAppPermission;
 import static com.example.desmosclonejavafirst.validations.database_validations.DataBaseValidation.passedAllDataBaseValidations;
 import static com.example.desmosclonejavafirst.validations.text_validations.TextValidation.passedAllTextValidationsForSignUp;
@@ -126,8 +126,8 @@ public class SignUpActivity extends AppCompatActivity {
 
         userUUID = UUID.randomUUID().toString();
 
-        String hashedPassword = encryptPasswordInSHA1(password);
-        User user = new User(username, hashedPassword, firstName, lastName, email, null);
+//        String hashedPassword = encryptPasswordInSHA1(password);
+        User user = new User(username, password, firstName, lastName, email, null);
 
         signUpANewUser(user, database, mAuth, SignUpActivity.this, new ISignUpCallback() {
             @Override
