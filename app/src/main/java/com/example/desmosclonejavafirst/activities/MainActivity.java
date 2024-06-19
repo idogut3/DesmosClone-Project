@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button buttonGoToExplanationsActivity = findViewById(R.id.buttonGoToExplanationsActivity);
         Button buttonGoToGraphingCalculatorActivity = findViewById(R.id.buttonGoToGraphingCalculatorActivity);
-        ImageView imageView = findViewById(R.id.imageProfilePicView);
+        imageView = findViewById(R.id.imageProfilePicView);
 
         // Start background animation
         AnimationDrawable animationDrawable = (AnimationDrawable) findViewById(R.id.mainActivityLayout).getBackground();
@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
-
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -53,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
                     imageUrl = dataSnapshot.child("imageUrl").getValue(String.class);
                     // Now you have the imageUrl for the specified userId
                     Log.d("FirebaseExample", "Image URL: " + imageUrl);
+                    displayImage(imageUrl);
                 } else {
                     Log.d("FirebaseExample", "User not found");
                 }
@@ -63,8 +63,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("ProfilePic", "Couldn't retrieve profile picture");
             }
         });
-
-        displayImage(imageUrl);
 
         buttonGoToExplanationsActivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     // Function to display the image using Glide
     private void displayImage(String imageUrl) {
         if (imageUrl != null) {
-            // Replace with your ImageView ID
+            // Use Glide to load the image
             Glide.with(this).load(imageUrl).into(imageView);
         }
     }

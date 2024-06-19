@@ -1,58 +1,78 @@
 package com.example.desmosclonejavafirst.services;
 
+import android.app.ActivityManager;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
-import android.util.Log;
-import androidx.annotation.Nullable;
 
 import com.example.desmosclonejavafirst.R;
 
 public class BackgroundMusicService extends Service {
-    private static final String TAG = "BackgroundMusicService";
-    private MediaPlayer mediaPlayer;
 
-    @Nullable
+    MediaPlayer player;
+    private int pausedPosition = 0;
+
     @Override
     public IBinder onBind(Intent intent) {
-        // We don't need to bind the service, so returning null.
         return null;
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        Log.d(TAG, "Service created");
 
-        // Initialize the MediaPlayer with a music file from the raw resource folder
-        mediaPlayer = MediaPlayer.create(this, R.raw.music_file1); // Ensure you have this file in res/raw folder
-        mediaPlayer.setLooping(true); // Set looping
-    }
-
+    //Starting the service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "Service started");
+        String action = intent.getAction();
 
-        // Start the music
-        if (mediaPlayer != null && !mediaPlayer.isPlaying()) {
-            mediaPlayer.start();
+        //setting values for Media-player
+
+        if (player == null) {
+            player = MediaPlayer.create(this, R.raw.music_file1);
+            player.setLooping(true);
+            player.setVolume(60, 60);
         }
-        return START_STICKY;
+
+        if (action != null && action.equals("PAUSE_MUSIC")) {
+            pauseMusic();
+        } else
+        if (action != null && action.equals("RESUME_MUSIC")) {
+            resumeMusic();
+        } else {
+            if (!player.isPlaying()) {
+                player.start();
+            }
+            else {
+                player.seekTo(pausedPosition);
+                player.start();
+            }
+        }
+
+        return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "Service destroyed");
-
-        // Stop the music and release the MediaPlayer
-        if (mediaPlayer != null) {
-            if (mediaPlayer.isPlaying()) {
-                mediaPlayer.stop();
-            }
-            mediaPlayer.release();
-            mediaPlayer = null;
+        if (player != null) {
+            player.stop();
+            player.release();
+            player = null;
         }
     }
+
+    private void pauseMusic() {
+        if (player != null && player.isPlaying()) {
+            pausedPosition = player.getCurrentPosition();
+            player.pause();
+        }
+    }
+
+    private void resumeMusic() {
+        if (player != null && !player.isPlaying()) {
+            player.seekTo(pausedPosition);
+            player.start();
+        }
+    }
+
 }

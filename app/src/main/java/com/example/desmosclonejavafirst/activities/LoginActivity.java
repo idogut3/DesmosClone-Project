@@ -2,6 +2,8 @@ package com.example.desmosclonejavafirst.activities;
 
 import static com.example.desmosclonejavafirst.validations.text_validations.TextValidation.passedAllTextValidationsForLogin;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
@@ -16,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.desmosclonejavafirst.R;
+import com.example.desmosclonejavafirst.services.BackgroundMusicService;
 import com.example.desmosclonejavafirst.validations.text_validations.CredentialAttribute;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -52,9 +55,9 @@ public class LoginActivity extends AppCompatActivity {
         animationDrawable.setExitFadeDuration(2500);
         animationDrawable.start();
 
-        // Background music
-        MediaPlayer mediaPlayer = MediaPlayer.create(LoginActivity.this, R.raw.music_file1);
-        mediaPlayer.start();
+        if(!isMyServiceRunning(BackgroundMusicService.class)) {
+            startService(new Intent(this, BackgroundMusicService.class));
+        }
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +107,15 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(goToForgotPasswordActivity);
             }
         });
+    }
+    public boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
