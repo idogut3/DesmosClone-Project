@@ -1,6 +1,7 @@
 package com.example.desmosclonejavafirst.activities;
 // Import statements for necessary classes and functions
 //import static com.example.desmosclonejavafirst.security.HashingFunctions.encryptPasswordInSHA1;
+
 import static com.example.desmosclonejavafirst.validations.text_validations.TextValidation.passedAllTextValidationsForLogin;
 
 import android.app.ActivityManager;
@@ -8,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         animationDrawable.start();
 
         // Start background music service if not already running
-        if(!isMyServiceRunning(BackgroundMusicService.class)) {
+        if (!isMyServiceRunning(BackgroundMusicService.class)) {
             startService(new Intent(this, BackgroundMusicService.class));
         }
 
@@ -96,38 +96,49 @@ public class LoginActivity extends AppCompatActivity {
                             .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
+                                    if (task.isSuccessful()) { // Login successful, navigate to MainActivity
                                         FirebaseUser user = mAuth.getCurrentUser();
                                         Intent goToMainActivity = new Intent(LoginActivity.this, MainActivity.class);
                                         startActivity(goToMainActivity);
                                         finish();
-                                    } else {
+                                    } else {  // Login failed, show error message
                                         Toast.makeText(LoginActivity.this, "Authentication Failed.", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
-                } else {
+                } else {  // Input is invalid, show error message
                     Toast.makeText(LoginActivity.this, "Login failed, input problem", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+        // Set OnClickListener for register new user button
         registerANewUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Navigate to SignUpActivity for user registration
                 Intent goToSignUpActivity = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(goToSignUpActivity);
             }
         });
 
+        // Set OnClickListener for forgot password button
         forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Navigate to ForgotPasswordActivity for password recovery
                 Intent goToForgotPasswordActivity = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
                 startActivity(goToForgotPasswordActivity);
             }
         });
     }
+
+    /**
+     * Checks if a specified service is running in the background.
+     *
+     * @param serviceClass The service class to check.
+     * @return true if the service is running, false otherwise.
+     */
     public boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {

@@ -11,8 +11,19 @@ import androidx.core.content.ContextCompat;
 
 import com.example.desmosclonejavafirst.validations.Validation;
 
+
+/**
+ * AppPermissionsValidation provides methods to validate and request app permissions, specifically CAMERA and WRITE_EXTERNAL_STORAGE.
+ */
 public class AppPermissionsValidation extends Validation {
 
+
+    /**
+     * Validates whether the app has CAMERA and WRITE_EXTERNAL_STORAGE permissions.
+     * If not, requests these permissions.
+     *
+     * @param context The context of the calling activity or application.
+     */
     public static void validateCameraAppPermission(Context context) {
         if (!hasCameraPermission(context)) {
             requestCameraPermission((Activity) context);

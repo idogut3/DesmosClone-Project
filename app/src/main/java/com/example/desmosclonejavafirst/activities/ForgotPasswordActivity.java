@@ -16,29 +16,40 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 
+
+/**
+ * ForgotPasswordActivity allows users to reset their password by sending a password reset email.
+ */
 public class ForgotPasswordActivity extends AppCompatActivity {
 
-    //Declaration
+    // Declaration of UI components
     private Button buttonReset;
     private EditText emailET;
 //    private ProgressBar progressBar;
     private FirebaseAuth mAuth;
     private String strEmail;
 
+    /**
+     * Called when the activity is starting. This is where most initialization should go.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down, this Bundle contains the data it most recently supplied.
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        //Initialization
+        // Initialization of UI components
         Button buttonGoBack = findViewById(R.id.btnForgotPasswordBack);
         buttonReset = findViewById(R.id.btnReset);
         emailET = findViewById(R.id.edtForgotPasswordEmail);
 
-
+        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-        //Reset Button Listener
+
+        // Listener for Reset Button
         buttonReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,22 +63,26 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         });
 
 
-        //Back Button Code
+        // Listener for Go Back Button
         buttonGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Navigate back to the previous activity
                 onBackPressed();
             }
         });
 
     }
 
+    /**
+     * Sends a password reset email to the user.
+     */
     private void ResetPassword() {
 //        progressBar.setVisibility(View.VISIBLE);
         buttonReset.setVisibility(View.INVISIBLE);
 
 
-
+        // Send password reset email
         mAuth.sendPasswordResetEmail(strEmail)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

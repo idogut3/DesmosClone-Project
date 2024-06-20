@@ -20,7 +20,14 @@ import com.example.desmosclonejavafirst.services.BackgroundMusicService;
 
 import java.util.Locale;
 
+
+
+/**
+ * Activity to explain polynomial functions using Text-to-Speech (TTS).
+ */
 public class ExplanationForPolynomialFunctionsActivity extends AppCompatActivity {
+
+    // Declaration of TextToSpeech and UI components
     private TextToSpeech textToSpeech;
     private TextView explanationTitleET, explanationPart1ET;
 
@@ -29,15 +36,19 @@ public class ExplanationForPolynomialFunctionsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_explanation_for_polynomial_functions);
 
+        // Initialization of UI components
         Button buttonGenerateExplanationTTS = findViewById(R.id.buttonGenerateExplanationTTS);
         Button buttonStopTTS = findViewById(R.id.stop_tts);
 
         explanationTitleET = findViewById(R.id.explanationTitle);
         explanationPart1ET = findViewById(R.id.explanationPart1);
 
+        // Stop the background music service if it's running
         if(!isMyServiceRunning(BackgroundMusicService.class)) {
             stopService(new Intent(this, BackgroundMusicService.class));
         }
+
+        // Initialize TextToSpeech
         textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -47,19 +58,22 @@ public class ExplanationForPolynomialFunctionsActivity extends AppCompatActivity
             }
         });
 
+        // Set onClick listener for the generate TTS button
         buttonGenerateExplanationTTS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String explanationTitle = explanationTitleET.getText().toString();
                 String explanationPart1 = explanationPart1ET.getText().toString();
 
+                // Set audio attributes for the TextToSpeech engine
                 int result = textToSpeech.setAudioAttributes(
                         new AudioAttributes.Builder()
                                 .setUsage(AudioAttributes.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE)
                                 .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
                                 .build());
 
-                if (result == TextToSpeech.SUCCESS) {
+
+                if (result == TextToSpeech.SUCCESS) {   // Speak the text if the audio attributes are set successfully
                     textToSpeech.speak(explanationTitle, TextToSpeech.QUEUE_ADD, null);
                     textToSpeech.speak(explanationPart1, TextToSpeech.QUEUE_ADD, null);
                 } else {
@@ -67,7 +81,7 @@ public class ExplanationForPolynomialFunctionsActivity extends AppCompatActivity
                 }
             }
         });
-
+        // Set onClick listener for the stop TTS button
         buttonStopTTS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,6 +101,13 @@ public class ExplanationForPolynomialFunctionsActivity extends AppCompatActivity
             textToSpeech.shutdown();
         }
     }
+
+    /**
+     * Checks if a given service is running.
+     *
+     * @param serviceClass The service class to check.
+     * @return True if the service is running, false otherwise.
+     */
 
     public boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);

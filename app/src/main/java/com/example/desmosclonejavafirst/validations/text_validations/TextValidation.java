@@ -10,6 +10,10 @@ import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * TextValidation class provides utility methods for validating text inputs such as email addresses,
+ * password matching, and checking if all credential attributes are not empty.
+ */
 public class TextValidation extends Validation {
 
     // Defining the regex pattern for a valid email address
@@ -64,10 +68,27 @@ public class TextValidation extends Validation {
         return password.equals(confirmPassword);
     }
 
+    /**
+     * Validates all text inputs for sign up. Checks if all credential attributes are not empty
+     * and if the password matches the confirmation password.
+     *
+     * @param credentials      a list of all the credential attributes in the sign up context
+     * @param context          the context of the calling activity or application
+     * @param password         the password input
+     * @param confirmPassword  the confirmation password input
+     * @return true if all text validations pass, false otherwise
+     */
     public static boolean passedAllTextValidationsForSignUp(LinkedList<CredentialAttribute> credentials, Context context, String password, String confirmPassword) {
         return isAllCredentialAttributesNotEmpty(credentials, context) && passwordMatchesConfirmPassword(password, confirmPassword);
     }
 
+    /**
+     * Validates all text inputs for login. Checks if all credential attributes are not empty.
+     *
+     * @param credentials a list of all the credential attributes in the login context
+     * @param context     the context of the calling activity or application
+     * @return true if all text validations pass, false otherwise
+     */
     public static boolean passedAllTextValidationsForLogin(LinkedList<CredentialAttribute> credentials, Context context) {
         return isAllCredentialAttributesNotEmpty(credentials, context); //TODO:: ADD EMAIL CHECK SOMETIME
     }

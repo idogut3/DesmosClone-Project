@@ -42,47 +42,64 @@ import java.util.LinkedList;
 import java.util.Objects;
 import java.util.UUID;
 
+
+/**
+ * SignUpActivity handles user registration including capturing user details,
+ * uploading a profile picture, and saving data to Firebase.
+ */
 public class SignUpActivity extends AppCompatActivity {
 
+
+    // Constants
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final String DEFAULT_PROFILE_PICTURE_URL = "https://example.com/default_profile_pic.png"; // Replace with your default image URL
-    private Uri imageUri;
-    private String userUUID;
+
+    // Member variables
+    private Uri imageUri; // URI of the selected profile image
+    private String userUUID; // Unique user identifier (for his picture)
+
+    // UI components
 
     private EditText firstNameET, lastNameET, usernameET, emailET, passwordET, confirmPasswordET;
     private ImageView imageProfilePicView;
-    private FirebaseAuth mAuth;
-    private FirebaseDatabase database;
+    private FirebaseAuth mAuth;  // Firebase authentication instance
+    private FirebaseDatabase database; // Firebase database instance
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_signup); // Set the content view to the signup layout
 
-        initUI();
-        initFirebase();
+        initUI(); // Initialize UI components
+        initFirebase();  // Initialize Firebase components
+
+        // Set up the image picker for profile picture selection
 
         imageProfilePicView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 validateCameraAppPermission(SignUpActivity.this);
-                pickImage();
+                pickImage(); // Launch the image picker
             }
         });
 
+        // Set up the signup button with click listener
         Button signupButton = findViewById(R.id.buttonSignUp);
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (validateInputs()) {
-                    signUpUser();
-                } else {
+                if (validateInputs()) { // Validate input fields
+                    signUpUser(); // Proceed with signup if inputs are valid
+                } else { //There is a problem with the input
                     Toast.makeText(SignUpActivity.this, "There is a problem with your input, can't sign up", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
+    /**
+     * Initialize UI components.
+     */
     private void initUI() {
         firstNameET = findViewById(R.id.firstName);
         lastNameET = findViewById(R.id.lastName);
@@ -93,11 +110,19 @@ public class SignUpActivity extends AppCompatActivity {
         imageProfilePicView = findViewById(R.id.imageProfilePicView);
     }
 
+    /**
+     * Initialize Firebase components.
+     */
     private void initFirebase() {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
     }
 
+    /**
+     * Validate user inputs for signup.
+     *
+     * @return true if inputs are valid, false otherwise.
+     */
     private boolean validateInputs() {
         LinkedList<CredentialAttribute> credentials = new LinkedList<>(Arrays.asList(
                 new CredentialAttribute("First name", firstNameET),
@@ -117,6 +142,10 @@ public class SignUpActivity extends AppCompatActivity {
         return textValidationPassed && dataBaseValidations;
     }
 
+    /**
+     * Sign up a new user with the given details.
+     */
+
     private void signUpUser() {
         String firstName = firstNameET.getText().toString().trim();
         String lastName = lastNameET.getText().toString().trim();
@@ -124,7 +153,7 @@ public class SignUpActivity extends AppCompatActivity {
         String email = emailET.getText().toString().trim();
         String password = passwordET.getText().toString().trim();
 
-        userUUID = UUID.randomUUID().toString();
+        userUUID = UUID.randomUUID().toString();  // Generate a unique user ID
 
 //        String hashedPassword = encryptPasswordInSHA1(password);
         User user = new User(username, password, firstName, lastName, email, null);
@@ -132,6 +161,7 @@ public class SignUpActivity extends AppCompatActivity {
         signUpANewUser(user, database, mAuth, SignUpActivity.this, new ISignUpCallback() {
             @Override
             public void onSignUpSuccess() {
+                // Navigate to the main activity upon successful signup
                 Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -144,6 +174,9 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Launches an image picker for selecting a profile picture.
+     */
     public void pickImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -151,16 +184,30 @@ public class SignUpActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
 
+    /**
+     * Handle the result of the image picker activity.
+     *
+     * @param requestCode The request code identifying the request.
+     * @param resultCode The result code indicating the success or failure of the request.
+     * @param data The data returned by the image picker activity.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            imageUri = data.getData();
+            imageUri = data.getData(); // Get the selected image URI
             Glide.with(this).load(imageUri).into(imageProfilePicView);
         }
     }
 
+    /**
+     * Upload the selected image to Firebase Storage and save the URL to the database.
+     *
+     * @param file The URI of the file to upload.
+     * @param randomUUID The unique ID for the user.
+     * @param userId The Firebase user ID.
+     */
     private void uploadImageToDatabaseAndSaveUrl(Uri file, String randomUUID, String userId) {
         if (file == null) {
             saveImageUrlToDatabase(userId, DEFAULT_PROFILE_PICTURE_URL);
@@ -177,7 +224,7 @@ public class SignUpActivity extends AppCompatActivity {
                         if (uri != null) {
                             String imageUrl = uri.toString();
                             setImageUri(imageUri);
-                            saveImageUrlToDatabase(userId, imageUrl);
+                            saveImageUrlToDatabase(userId, imageUrl); // Save the image URL to the database
                             Toast.makeText(SignUpActivity.this, "Image Uploaded and URL saved!", Toast.LENGTH_SHORT).show();
                         } else {
                             saveImageUrlToDatabase(userId, DEFAULT_PROFILE_PICTURE_URL);
@@ -193,6 +240,12 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Save the image URL to the user's profile in the database.
+     *
+     * @param userId The Firebase user ID.
+     * @param imageUrl The URL of the uploaded image.
+     */
     private void saveImageUrlToDatabase(String userId, String imageUrl) {
         DatabaseReference userRef = database.getReference().child("users").child(userId).child("imageUrl");
         userRef.setValue(imageUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -205,6 +258,15 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Handle user sign up process, including Firebase authentication and data storage.
+     *
+     * @param user The user object containing user details.
+     * @param database The Firebase database instance.
+     * @param mAuth The Firebase authentication instance.
+     * @param context The context in which the method is called.
+     * @param iSignUpCallback The callback interface for handling sign up success or failure.
+     */
     public void signUpANewUser(User user, FirebaseDatabase database, FirebaseAuth mAuth, Context context, ISignUpCallback iSignUpCallback) {
         String userEmail = user.getEmail();
         String userPassword = user.getPassword();
@@ -254,10 +316,20 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Get the URL of the selected image.
+     *
+     * @return The image URL.
+     */
     public String getImageUrl() {
         return imageUri != null ? imageUri.toString() : DEFAULT_PROFILE_PICTURE_URL;
     }
 
+    /**
+     * Set the URI of the selected image.
+     *
+     * @param imageUri The URI of the selected image.
+     */
     public void setImageUri(Uri imageUri) {
         this.imageUri = imageUri;
     }

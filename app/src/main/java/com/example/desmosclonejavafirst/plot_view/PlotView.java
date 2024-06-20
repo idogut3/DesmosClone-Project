@@ -14,6 +14,10 @@ import androidx.annotation.NonNull;
 
 import com.example.desmosclonejavafirst.plot_view.zoom_handler.ScaleListener;
 
+
+/**
+ * Custom view for plotting polynomial functions and enabling pinch-to-zoom functionality.
+ */
 public class PlotView extends View {
     private Paint paint;
     private String function;
@@ -27,11 +31,20 @@ public class PlotView extends View {
     private boolean hasErrorShown = false;
 
 
+    /**
+     * Constructor for PlotView.
+     *
+     * @param context Context of the view.
+     * @param attrs   Attributes set from XML.
+     */
     public PlotView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
+    /**
+     * Initializes the view by setting up paint, scale gesture detector, and pivot point.
+     */
     private void init() {
         paint = new Paint();
         paint.setColor(0xFF000000);
@@ -41,12 +54,22 @@ public class PlotView extends View {
         pivotPoint = new PointF();
     }
 
+    /**
+     * Sets the polynomial function to be plotted and invalidates the view to trigger redraw.
+     *
+     * @param function Polynomial function in string format.
+     */
     public void setFunction(String function) {
         this.function = function;
         hasErrorShown = false; // Reset the error flag when a new function is set
         invalidate(); // Redraw the view
     }
 
+    /**
+     * Draws the polynomial function on the canvas.
+     *
+     * @param canvas Canvas on which the function is drawn.
+     */
     @Override
     protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
@@ -64,7 +87,7 @@ public class PlotView extends View {
                 drawFunction(canvas);
                 hasErrorShown = false;
             } catch (Exception e) {
-                //  Block of code to handle errors
+                // Handle function parsing error
                 if (!hasErrorShown) {
                     Toast.makeText(getContext(), "Please enter your polynomial by the form ax^n + bx^(n-1) ...", Toast.LENGTH_SHORT).show();
                     hasErrorShown = true;
@@ -76,6 +99,11 @@ public class PlotView extends View {
         canvas.restore();
     }
 
+    /**
+     * Draws the polynomial function on the canvas.
+     *
+     * @param canvas Canvas on which the function is drawn.
+     */
     private void drawFunction(Canvas canvas) {
         int width = getWidth();
         int height = getHeight();
@@ -114,6 +142,11 @@ public class PlotView extends View {
         }
     }
 
+    /**
+     * Draws X and Y axes on the canvas.
+     *
+     * @param canvas Canvas on which the axes are drawn.
+     */
     private void drawAxes(Canvas canvas) {
         int width = getWidth();
         int height = getHeight();
@@ -126,6 +159,14 @@ public class PlotView extends View {
         // Draw Y-axis (vertical line)
         canvas.drawLine(width / 2, 0, width / 2, height, paint);
     }
+
+    /**
+     * Evaluates the polynomial function at a given x value.
+     *
+     * @param function Polynomial function in string format.
+     * @param x        Value at which the function is evaluated.
+     * @return Result of the function evaluation at x.
+     */
 
     private static double evaluatePolynomial(String function, double x) {
         double result = 0.0;
@@ -168,6 +209,13 @@ public class PlotView extends View {
         return result;
     }
 
+
+    /**
+     * Handles touch events on the view for pinch-to-zoom functionality.
+     *
+     * @param event The motion event.
+     * @return True if the event was handled, false otherwise.
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // Update the pivot point for scaling
