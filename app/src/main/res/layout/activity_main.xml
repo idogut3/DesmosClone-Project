@@ -55,6 +55,13 @@
                 android:text="@string/goToGraphingCalculatorActivity"
                 android:textSize="15sp" />
 
+            <Button
+                android:id="@+id/buttonSignOut"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_out"
+                android:textSize="15sp" />
+
         </LinearLayout>
 
     </LinearLayout>

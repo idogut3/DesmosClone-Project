@@ -1,5 +1,5 @@
 package com.example.desmosclonejavafirst.activities;
-
+// Import statements for necessary classes and functions
 //import static com.example.desmosclonejavafirst.security.HashingFunctions.encryptPasswordInSHA1;
 import static com.example.desmosclonejavafirst.validations.text_validations.TextValidation.passedAllTextValidationsForLogin;
 
@@ -30,8 +30,17 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
 import java.util.LinkedList;
 
+/**
+ * LoginActivity is responsible for handling user login operations.
+ * It includes features such as email and password validation,
+ * background animation, and background music service management.
+ */
+
 public class LoginActivity extends AppCompatActivity {
+    // UI elements for email and password input
     private EditText emailET, passwordET;
+
+    // Firebase Authentication instance
     private FirebaseAuth mAuth;
 
     @Override
@@ -39,14 +48,17 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Initialize Firebase Authentication instance
         this.mAuth = FirebaseAuth.getInstance();
 
+        // Link UI elements to code
         this.emailET = findViewById(R.id.email);
         this.passwordET = findViewById(R.id.password);
         Button loginButton = findViewById(R.id.buttonLogin);
         Button forgotPasswordButton = findViewById(R.id.buttonForgotPassword);
         Button registerANewUserButton = findViewById(R.id.buttonRegisterANewUser);
 
+        // Set button background colors to transparent
         forgotPasswordButton.setBackgroundColor(Color.TRANSPARENT);
         registerANewUserButton.setBackgroundColor(Color.TRANSPARENT);
 
@@ -56,24 +68,30 @@ public class LoginActivity extends AppCompatActivity {
         animationDrawable.setExitFadeDuration(2500);
         animationDrawable.start();
 
+        // Start background music service if not already running
         if(!isMyServiceRunning(BackgroundMusicService.class)) {
             startService(new Intent(this, BackgroundMusicService.class));
         }
 
+        // Set OnClickListener for login button
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Get email and password input
                 String email = emailET.getText().toString().trim();
                 String password = passwordET.getText().toString().trim();
 
+                // Create a list of CredentialAttribute objects for validation
                 LinkedList<CredentialAttribute> credentials = new LinkedList<>(Arrays.asList(
                         new CredentialAttribute("Email", emailET),
                         new CredentialAttribute("Password", passwordET)));
 
+                // Validate the input
                 boolean isInputValid = passedAllTextValidationsForLogin(credentials, LoginActivity.this);
-
+                // If input is valid, proceed with login
                 if (isInputValid) {
 //                    String hashedPassword = encryptPasswordInSHA1(password);
+                    // Sign in with email and password using Firebase Authentication
                     mAuth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override

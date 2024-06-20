@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
         Button buttonGoToExplanationsActivity = findViewById(R.id.buttonGoToExplanationsActivity);
         Button buttonGoToGraphingCalculatorActivity = findViewById(R.id.buttonGoToGraphingCalculatorActivity);
+        Button buttonSignOut = findViewById(R.id.buttonSignOut);
+
         imageView = findViewById(R.id.imageProfilePicView);
 
         // Start background animation
@@ -61,6 +63,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.d("ProfilePic", "Couldn't retrieve profile picture");
+            }
+        });
+
+        buttonSignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Intent goToLoginPage = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(goToLoginPage);
+                finish();
             }
         });
 
