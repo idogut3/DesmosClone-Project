@@ -5,7 +5,7 @@ The purpose of the project is to provide an intuitive and efficient tool for plo
 It aims to help users visualize complex mathematical concepts, making it easier to understand and analyze the behavior of polynomials. This app is designed to be a valuable resource for students, educators, and anyone with an interest in mathematics.
 
 # A more in depth dive to the development of the project:
-[+ Video for showcasing the app](https://drive.google.com/file/d/1zR3NvPZHFA8NzH8JiA8tPCXxrFORmuky/view?usp=sharing)
-[+ The written assignment for understanding the app better :)](https://drive.google.com/file/d/1RQlhA9D6NV7naB7RS89YBAc06ScUguew/view?usp=sharing)
+[Video for showcasing the app](https://drive.google.com/file/d/1zR3NvPZHFA8NzH8JiA8tPCXxrFORmuky/view?usp=sharing)
+[The written assignment for understanding the app better :)](https://drive.google.com/file/d/1RQlhA9D6NV7naB7RS89YBAc06ScUguew/view?usp=sharing)
 
 ![](https://github.com/idogut3/DesmosClone-Project/blob/main/drawing_polynomials_gif.gif)
